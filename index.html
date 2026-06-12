@@ -112,7 +112,7 @@ h1 span{color:var(--p)}
   color:var(--m);
 }
 
-/* SEHEMU ZA PICHA - PLAY STORE STYLE */
+/* SEHEMU ZA PICHA */
 .api-section{
   margin-top:35px;
   text-align:left;
@@ -126,61 +126,34 @@ h1 span{color:var(--p)}
   align-items:center;
   gap:8px;
 }
-.movie-scroll{
+.photo-scroll{
   display:flex;
-  gap:12px;
+  gap:10px;
   overflow-x:auto;
   padding-bottom:10px;
   scrollbar-width:thin;
 }
-.movie-scroll::-webkit-scrollbar{height:4px}
-.movie-scroll::-webkit-scrollbar-thumb{background:var(--p);border-radius:4px}
-.movie-card{
-  min-width:120px;
-  background:var(--bg);
-  border:1px solid var(--b);
+.photo-scroll::-webkit-scrollbar{height:4px}
+.photo-scroll::-webkit-scrollbar-thumb{background:var(--p);border-radius:4px}
+.photo-card{
+  min-width:100px;
+  height:150px;
   border-radius:12px;
   overflow:hidden;
+  border:2px solid var(--b);
+  flex-shrink:0;
   transition:.3s;
   cursor:pointer;
-  position:relative;
 }
-.movie-card:hover{
-  transform:translateY(-4px);
+.photo-card:hover{
   border-color:var(--p);
-  box-shadow:0 8px 20px rgba(108,92,231,0.4);
+  transform:scale(1.05);
+  box-shadow:0 8px 25px rgba(108,92,231,0.5);
 }
-.movie-card img{
-  width:120px;
-  height:180px;
+.photo-card img{
+  width:100%;
+  height:100%;
   object-fit:cover;
-  display:block;
-}
-.movie-info{
-  padding:8px;
-}
-.movie-title{
-  font-size:11px;
-  font-weight:700;
-  display:-webkit-box;
-  -webkit-line-clamp:2;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
-  margin-bottom:3px;
-}
-.movie-year{
-  font-size:10px;
-  color:var(--m);
-}
-.badge-api{
-  position:absolute;
-  top:5px;
-  right:5px;
-  background:linear-gradient(45deg,var(--p),var(--pu));
-  padding:2px 5px;
-  border-radius:5px;
-  font-size:8px;
-  font-weight:800;
 }
 
 /* APP SCREENSHOTS */
@@ -211,8 +184,7 @@ h1 span{color:var(--p)}
 @media(max-width:480px){
   .container{padding:25px 20px}
   h1{font-size:22px}
-  .movie-card{min-width:100px}
-  .movie-card img{width:100px;height:150px}
+  .photo-card{min-width:85px;height:130px}
   .screenshot-grid{grid-template-columns:1fr}
 </style>
 </head>
@@ -243,15 +215,29 @@ h1 span{color:var(--p)}
     <div class="feature"><i class="bi bi-bell-fill"></i> Push Notifications</div>
   </div>
 
-  <!-- MOVIES ZA KUTOKEA API - ZITAKAZOCHANGE -->
+  <!-- PICHA ZA MOVIES KUTOKA TIKTOKPHOTO API -->
   <div class="api-section">
-    <div class="api-title"><i class="bi bi-film"></i> Movies Maarufu Wiki Hii</div>
-    <div class="movie-scroll" id="moviesList">
-      <div class="loader"><i class="bi bi-arrow-repeat"></i> Inapakia movies...</div>
+    <div class="api-title"><i class="bi bi-film"></i> Top Movies Wiki Hii</div>
+    <div class="photo-scroll" id="moviePhotos">
+      <div class="loader"><i class="bi bi-arrow-repeat"></i> Inapakia picha...</div>
     </div>
   </div>
 
-  <!-- APP SCREENSHOTS -->
+  <div class="api-section">
+    <div class="api-title"><i class="bi bi-lightning"></i> Marvel & Action</div>
+    <div class="photo-scroll" id="marvelPhotos">
+      <div class="loader"><i class="bi bi-arrow-repeat"></i> Inapakia picha...</div>
+    </div>
+  </div>
+
+  <div class="api-section">
+    <div class="api-title"><i class="bi bi-emoji-smile"></i> Cartoon Movies</div>
+    <div class="photo-scroll" id="cartoonPhotos">
+      <div class="loader"><i class="bi bi-arrow-repeat"></i> Inapakia picha...</div>
+    </div>
+  </div>
+
+  <!-- APP SCREENSHOTS zako 4 -->
   <div class="api-section">
     <div class="api-title"><i class="bi bi-images"></i> Picha za App</div>
     <div class="screenshot-grid">
@@ -266,36 +252,42 @@ h1 span{color:var(--p)}
 </div>
 
 <script>
-// TUMIA SEARCH BILA KEYWORD ILI UPATE MOVIES TOFAUTI
-async function loadMovies(){
-  const list = document.getElementById('moviesList');
-  const keywords = ['Action','Comedy','Marvel','Drama','Horror','Adventure'];
-  const randomKey = keywords[Math.floor(Math.random() * keywords.length)];
-  
+// FUNCTION YA KUVUTA PICHA KUTOKA TIKTOKPHOTO API
+async function loadPhotos(query, elementId){
+  const el = document.getElementById(elementId);
   try{
-    const res = await fetch('https://imdb.iamidiotareyoutoo.com/search?q=' + randomKey);
+    const res = await fetch(`https://api.nexray.eu.cc/search/tiktokphoto?q=${encodeURIComponent(query)}`);
     const data = await res.json();
-    if(data.ok && data.description){
-      list.innerHTML = data.description.slice(0,10).map(m => `
-        <div class="movie-card" onclick="window.open('${m['#IMDB_URL']}','_blank')">
-          <span class="badge-api">HD</span>
-          <img src="${m['#IMG_POSTER']}" loading="lazy" onerror="this.src='https://via.placeholder.com/120x180/141926/6c5ce7?text=Movie'">
-          <div class="movie-info">
-            <div class="movie-title">${m['#TITLE']}</div>
-            <div class="movie-year">${m['#YEAR']} • ${m['#ACTORS'].split(',')[0]}</div>
-          </div>
+    
+    if(data.status && data.result && data.result.length > 0){
+      let allImages = [];
+      data.result.forEach(item => {
+        if(item.images && item.images.length > 0){
+          allImages = allImages.concat(item.images);
+        }
+      });
+      
+      // Chukua picha 15 za kwanza
+      el.innerHTML = allImages.slice(0,15).map(img => `
+        <div class="photo-card">
+          <img src="${img}" loading="lazy" onerror="this.style.display='none'">
         </div>
       `).join('');
     } else {
-      list.innerHTML = '<div class="loader">Hakuna movies</div>';
+      el.innerHTML = '<div class="loader">Hakuna picha</div>';
     }
   }catch(e){
-    list.innerHTML = '<div class="loader">Error kupakia movies</div>';
+    el.innerHTML = '<div class="loader">Error kupakia</div>';
     console.error(e);
   }
 }
 
-window.onload = loadMovies;
+// Load picha zote 3 pamoja
+window.onload = function(){
+  loadPhotos('Movie', 'moviePhotos');
+  loadPhotos('Marvel', 'marvelPhotos');
+  loadPhotos('cartoon', 'cartoonPhotos');
+}
 </script>
 </body>
 </html>
