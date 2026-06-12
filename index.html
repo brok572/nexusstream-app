@@ -7,167 +7,287 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 <style>
-:root{--p:#6c5ce7;--pu:#a29bfe;--bg:#0a0e1a;--card:#141926;--b:#1e293b;--t:#fff;--m:#8892b0;}
+:root{
+  --p:#6c5ce7;--pu:#a29bfe;--bg:#0a0e1a;--card:#141926;--b:#1e293b;--t:#fff;--m:#8892b0;
+}
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
-body{background:radial-gradient(circle at top left, #1a0f2e 0%, var(--bg) 60%);color:var(--t);min-height:100vh;padding:20px}
-.container{max-width:500px;width:100%;margin:0 auto;background:var(--card);border:1px solid var(--b);border-radius:24px;padding:35px 25px;text-align:center;box-shadow:0 0 50px rgba(108,92,231,0.3)}
-.premium-badge{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(45deg,var(--p),var(--pu));padding:6px 14px;border-radius:20px;font-size:12px;font-weight:800;margin-bottom:20px}
-.app-icon{width:120px;height:120px;border-radius:28px;border:3px solid var(--p);box-shadow:0 0 30px rgba(108,92,231,0.6);margin-bottom:20px}
-h1{font-size:26px;font-weight:900;margin-bottom:8px}h1 span{color:var(--p)}
-.subtitle{color:var(--m);font-size:14px;margin-bottom:30px}
-.download-wrapper{margin-bottom:12px}
-.download-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px;background:linear-gradient(45deg,var(--p),var(--pu));color:#fff;border:none;border-radius:14px;font-weight:800;font-size:15px;transition:.3s;box-shadow:0 8px 25px rgba(108,92,231,0.4);cursor:pointer}
-.download-btn:hover{transform:translateY(-3px)} .download-btn:disabled{opacity:0.6;cursor:not-allowed}
-.download-btn.outline{background:transparent;border:2px solid var(--p);color:var(--p);box-shadow:none}
-.download-btn.outline:hover{background:var(--p);color:#fff}
-.progress-box{display:none;margin-top:12px;background:var(--bg);border:1px solid var(--b);border-radius:12px;padding:12px}
-.progress-header{display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px;color:var(--m)}
-.progress-bar-bg{width:100%;height:8px;background:var(--b);border-radius:10px;overflow:hidden}
-.progress-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--p),var(--pu));border-radius:10px;transition:width 0.3s ease;box-shadow:0 0 10px rgba(108,92,231,0.6)}
-.progress-percent{font-weight:800;color:var(--p)}
-.photo-scroll{display:flex;gap:10px;overflow-x:auto;padding-bottom:10px}
-.photo-card{min-width:100px;height:150px;border-radius:12px;overflow:hidden;border:2px solid var(--b);flex-shrink:0}
-.photo-card img{width:100%;height:100%;object-fit:cover}
-.screenshot-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:35px}
-.screenshot-grid img{width:100%;border-radius:12px;border:2px solid var(--b)}
-.loader{text-align:center;padding:15px;font-size:12px;color:var(--m)}
-.api-title{font-size:16px;font-weight:800;color:var(--p);margin-bottom:15px;display:flex;align-items:center;gap:8px;margin-top:35px}
+body{
+  background:radial-gradient(circle at top left, #1a0f2e 0%, var(--bg) 60%);
+  color:var(--t);
+  min-height:100vh;
+  padding:20px;
+}
+.container{
+  max-width:500px;
+  width:100%;
+  margin:0 auto;
+  background:var(--card);
+  border:1px solid var(--b);
+  border-radius:24px;
+  padding:35px 25px;
+  text-align:center;
+  box-shadow:0 0 50px rgba(108,92,231,0.3);
+  backdrop-filter:blur(20px);
+}
+.premium-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:linear-gradient(45deg,var(--p),var(--pu));
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:800;
+  margin-bottom:20px;
+  box-shadow:0 4px 15px rgba(108,92,231,0.5);
+}
+.app-icon{
+  width:120px;
+  height:120px;
+  border-radius:28px;
+  border:3px solid var(--p);
+  box-shadow:0 0 30px rgba(108,92,231,0.6);
+  margin-bottom:20px;
+}
+h1{
+  font-size:26px;
+  font-weight:900;
+  margin-bottom:8px;
+}
+h1 span{color:var(--p)}
+.subtitle{
+  color:var(--m);
+  font-size:14px;
+  margin-bottom:30px;
+}
+.download-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  width:100%;
+  padding:16px;
+  margin-bottom:12px;
+  background:linear-gradient(45deg,var(--p),var(--pu));
+  color:#fff;
+  text-decoration:none;
+  border-radius:14px;
+  font-weight:800;
+  font-size:15px;
+  transition:.3s;
+  box-shadow:0 8px 25px rgba(108,92,231,0.4);
+}
+.download-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 35px rgba(108,92,231,0.6);
+}
+.download-btn.outline{
+  background:transparent;
+  border:2px solid var(--p);
+  color:var(--p);
+  box-shadow:none;
+}
+.download-btn.outline:hover{
+  background:var(--p);
+  color:#fff;
+}
+.features{
+  margin-top:30px;
+  text-align:left;
+  border-top:1px solid var(--b);
+  padding-top:20px;
+}
+.feature{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:var(--m);
+  font-size:13px;
+  margin-bottom:10px;
+}
+.feature i{color:var(--p);font-size:16px}
+.footer{
+  margin-top:25px;
+  font-size:11px;
+  color:var(--m);
+}
+
+/* SEHEMU ZA PICHA */
+.api-section{
+  margin-top:35px;
+  text-align:left;
+}
+.api-title{
+  font-size:16px;
+  font-weight:800;
+  color:var(--p);
+  margin-bottom:15px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.photo-scroll{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding-bottom:10px;
+  scrollbar-width:thin;
+}
+.photo-scroll::-webkit-scrollbar{height:4px}
+.photo-scroll::-webkit-scrollbar-thumb{background:var(--p);border-radius:4px}
+.photo-card{
+  min-width:100px;
+  height:150px;
+  border-radius:12px;
+  overflow:hidden;
+  border:2px solid var(--b);
+  flex-shrink:0;
+  transition:.3s;
+  cursor:pointer;
+}
+.photo-card:hover{
+  border-color:var(--p);
+  transform:scale(1.05);
+  box-shadow:0 8px 25px rgba(108,92,231,0.5);
+}
+.photo-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* APP SCREENSHOTS */
+.screenshot-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+.screenshot-grid img{
+  width:100%;
+  border-radius:12px;
+  border:2px solid var(--b);
+  transition:.3s;
+  cursor:pointer;
+}
+.screenshot-grid img:hover{
+  border-color:var(--p);
+  transform:scale(1.03);
+  box-shadow:0 8px 25px rgba(108,92,231,0.5);
+}
+.loader{
+  text-align:center;
+  padding:15px;
+  font-size:12px;
+  color:var(--m);
+}
+
+@media(max-width:480px){
+  .container{padding:25px 20px}
+  h1{font-size:22px}
+  .photo-card{min-width:85px;height:130px}
+  .screenshot-grid{grid-template-columns:1fr}
 </style>
 </head>
 <body>
 <div class="container">
-  <div class="premium-badge"><i class="bi bi-gem"></i> PREMIUM</div>
-  <img src="https://www.appcreator24.com/srv/imgs/gen/3875181_ico.png?v=14" class="app-icon">
+  <div class="premium-badge">
+    <i class="bi bi-gem"></i> PREMIUM
+  </div>
+  
+  <img src="https://www.appcreator24.com/srv/imgs/gen/3875181_ico.png?v=14" class="app-icon" alt="App Icon">
+  
   <h1>Nexus<span>Stream</span> Premium</h1>
   <p class="subtitle">App rasmi ya kutazama movies, series & live TV bila matangazo</p>
   
-  <div class="download-wrapper">
-    <button class="download-btn" id="downloadBtn" onclick="downloadAPK()">
-      <i class="bi bi-download"></i> <span id="btnText">Download APK</span>
-    </button>
-    
-    <div class="progress-box" id="progressBox">
-      <div class="progress-header">
-        <span>Inadownload...</span>
-        <span class="progress-percent" id="percentText">0%</span>
-      </div>
-      <div class="progress-bar-bg">
-        <div class="progress-bar-fill" id="progressFill"></div>
-      </div>
-      <div style="font-size:11px;color:var(--m);margin-top:6px" id="sizeText">0 MB / 0 MB</div>
-    </div>
-  </div>
+  <a href="https://apk.e-droid.net/apk/app3875181-g9trcq.apk?v=14" class="download-btn" download>
+    <i class="bi bi-download"></i> Download APK
+  </a>
   
-  <a href="https://aab.e-droid.net/aab/app3875181.aab?v=14" class="download-btn outline" target="_blank">
+  <a href="https://aab.e-droid.net/aab/app3875181.aab?v=14" class="download-btn outline" download>
     <i class="bi bi-box-seam"></i> Download AAB - Google Play
   </a>
   
-  <div class="api-title"><i class="bi bi-film"></i> Top Movies Wiki Hii</div>
-  <div class="photo-scroll" id="moviePhotos"><div class="loader">Inapakia picha...</div></div>
-
-  <div class="api-title"><i class="bi bi-images"></i> Picha za App</div>
-  <div class="screenshot-grid">
-    <img src="https://nexusstream-co-tz.fwh.is/uploads/1781252647_9478.png">
-    <img src="https://nexusstream-co-tz.fwh.is/uploads/1781252647_8942.png">
-    <img src="https://nexusstream-co-tz.fwh.is/uploads/1781252647_4795.png">
-    <img src="https://nexusstream-co-tz.fwh.is/uploads/1781252647_1805.png">
+  <div class="features">
+    <div class="feature"><i class="bi bi-shield-check"></i> Hakuna matangazo - Adfree Unlimited</div>
+    <div class="feature"><i class="bi bi-play-circle"></i> HD 1080p Streaming</div>
+    <div class="feature"><i class="bi bi-cast"></i> Chromecast Support</div>
+    <div class="feature"><i class="bi bi-moon-stars"></i> Dark Mode</div>
+    <div class="feature"><i class="bi bi-bell-fill"></i> Push Notifications</div>
   </div>
+
+  <!-- PICHA ZA MOVIES KUTOKA TIKTOKPHOTO API -->
+  <div class="api-section">
+    <div class="api-title"><i class="bi bi-film"></i> Top Movies Wiki Hii</div>
+    <div class="photo-scroll" id="moviePhotos">
+      <div class="loader"><i class="bi bi-arrow-repeat"></i> Inapakia picha...</div>
+    </div>
+  </div>
+
+  <div class="api-section">
+    <div class="api-title"><i class="bi bi-lightning"></i> Marvel & Action</div>
+    <div class="photo-scroll" id="marvelPhotos">
+      <div class="loader"><i class="bi bi-arrow-repeat"></i> Inapakia picha...</div>
+    </div>
+  </div>
+
+  <div class="api-section">
+    <div class="api-title"><i class="bi bi-emoji-smile"></i> Cartoon Movies</div>
+    <div class="photo-scroll" id="cartoonPhotos">
+      <div class="loader"><i class="bi bi-arrow-repeat"></i> Inapakia picha...</div>
+    </div>
+  </div>
+
+  <!-- APP SCREENSHOTS zako 4 -->
+  <div class="api-section">
+    <div class="api-title"><i class="bi bi-images"></i> Picha za App</div>
+    <div class="screenshot-grid">
+      <img src="https://nexusstream-co-tz.fwh.is/uploads/1781252647_9478.png" alt="Screenshot 1">
+      <img src="https://nexusstream-co-tz.fwh.is/uploads/1781252647_8942.png" alt="Screenshot 2">
+      <img src="https://nexusstream-co-tz.fwh.is/uploads/1781252647_4795.png" alt="Screenshot 3">
+      <img src="https://nexusstream-co-tz.fwh.is/uploads/1781252647_1805.png" alt="Screenshot 4">
+    </div>
+  </div>
+  
+  <p class="footer">© 2026 NexusStream Premium. App imetengenezwa na AppCreator24</p>
 </div>
 
 <script>
-const APK_URL = 'https://apk.e-droid.net/apk/app3875181-g9trcq.apk?v=14';
-const APK_NAME = 'NexusStream_Premium.apk';
-
-function downloadAPK(){
-  const btn = document.getElementById('downloadBtn');
-  const btnText = document.getElementById('btnText');
-  const progressBox = document.getElementById('progressBox');
-  const progressFill = document.getElementById('progressFill');
-  const percentText = document.getElementById('percentText');
-  const sizeText = document.getElementById('sizeText');
-  
-  btn.disabled = true;
-  btnText.innerHTML = '<i class="bi bi-arrow-repeat"></i> Inaunganisha...';
-  progressBox.style.display = 'block';
-  
-  // Tumia XMLHttpRequest - ina-support progress na haipati CORS kama fetch
-  const xhr = new XMLHttpRequest();
-  xhr.open('GET', APK_URL, true);
-  xhr.responseType = 'blob';
-  
-  xhr.onprogress = function(e){
-    if(e.lengthComputable){
-      const percent = Math.round((e.loaded / e.total) * 100);
-      const loadedMB = (e.loaded / 1024 / 1024).toFixed(1);
-      const totalMB = (e.total / 1024 / 1024).toFixed(1);
-      
-      progressFill.style.width = percent + '%';
-      percentText.textContent = percent + '%';
-      sizeText.textContent = loadedMB + ' MB / ' + totalMB + ' MB';
-      btnText.textContent = 'Inadownload ' + percent + '%';
-    }
-  };
-  
-  xhr.onload = function(){
-    if(xhr.status === 200){
-      const blob = xhr.response;
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = APK_NAME;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url);
-      
-      btnText.innerHTML = '<i class="bi bi-check-circle"></i> Download Imekamilika!';
-      percentText.textContent = '100%';
-      progressFill.style.width = '100%';
-      
-      setTimeout(() => {
-        btn.disabled = false;
-        btnText.innerHTML = '<i class="bi bi-download"></i> Download APK Tena';
-        progressBox.style.display = 'none';
-        progressFill.style.width = '0%';
-      }, 3000);
-    } else {
-      throw new Error('Status: ' + xhr.status);
-    }
-  };
-  
-  xhr.onerror = function(){
-    // Kama CORS ikikataa, tumia direct link
-    alert('CORS imekataa. Nakupeleka kwenye direct download...');
-    window.location.href = APK_URL;
-    btn.disabled = false;
-    btnText.innerHTML = '<i class="bi bi-download"></i> Download APK';
-    progressBox.style.display = 'none';
-  };
-  
-  xhr.send();
-}
-
-// Load picha za movies
+// FUNCTION YA KUVUTA PICHA KUTOKA TIKTOKPHOTO API
 async function loadPhotos(query, elementId){
   const el = document.getElementById(elementId);
   try{
     const res = await fetch(`https://api.nexray.eu.cc/search/tiktokphoto?q=${encodeURIComponent(query)}`);
     const data = await res.json();
-    if(data.status && data.result){
+    
+    if(data.status && data.result && data.result.length > 0){
       let allImages = [];
       data.result.forEach(item => {
-        if(item.images) allImages = allImages.concat(item.images);
+        if(item.images && item.images.length > 0){
+          allImages = allImages.concat(item.images);
+        }
       });
+      
+      // Chukua picha 15 za kwanza
       el.innerHTML = allImages.slice(0,15).map(img => `
-        <div class="photo-card"><img src="${img}" loading="lazy"></div>
+        <div class="photo-card">
+          <img src="${img}" loading="lazy" onerror="this.style.display='none'">
+        </div>
       `).join('');
+    } else {
+      el.innerHTML = '<div class="loader">Hakuna picha</div>';
     }
   }catch(e){
     el.innerHTML = '<div class="loader">Error kupakia</div>';
+    console.error(e);
   }
 }
 
-window.onload = () => loadPhotos('Movie', 'moviePhotos');
+// Load picha zote 3 pamoja
+window.onload = function(){
+  loadPhotos('Movie', 'moviePhotos');
+  loadPhotos('Marvel', 'marvelPhotos');
+  loadPhotos('cartoon', 'cartoonPhotos');
+}
 </script>
 </body>
 </html>
